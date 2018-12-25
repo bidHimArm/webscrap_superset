@@ -1,0 +1,9 @@
+1545406895492	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.9jSjIOFQs24X"
+*** You are running in headless mode.
+1545406897941	Marionette	INFO	Listening on port 33263
+1545406898000	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://3-1457-superset.public.a4.saagie.io/static/appbuilder/js/jquery-latest.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://3-1457-superset.public.a4.saagie.io/static/appbuilder/js/jquery-latest.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1545406910189	Marionette	INFO	Stopped listening on port 33263
+[Parent 3049, Gecko_IOThread] WARNING: pipe error (96): Connection reset by peer: file /build/firefox-JcIUVH/firefox-63.0.3+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 356
+[Parent 3049, Gecko_IOThread] WARNING: pipe error (64): Connection reset by peer: file /build/firefox-JcIUVH/firefox-63.0.3+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 356

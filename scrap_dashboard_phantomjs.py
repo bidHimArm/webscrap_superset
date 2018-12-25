@@ -19,8 +19,10 @@ import datetime
 import os
 import getpass 
 
+
 username = input('Enter username: ')
-pswd = input("Password:")
+pswd =getpass.getpass('Password: ')
+# pswd = input("Password:")
 dashboard=input("Input dashboard name:") # for exemple "Degrilleur - rapport"
 Url="https://3-1457-superset.public.a4.saagie.io/login/"
 
@@ -28,24 +30,27 @@ Url="https://3-1457-superset.public.a4.saagie.io/login/"
 Install phantomjs
 """
 # from subprocess import call
-# call(["ls"])
+# curdir=os.getcwd()
 
-os.system('apt-get install build-essential chrpath libssl-dev libxft-dev')
-os.system('sudo apt-get install libfreetype6 libfreetype6-dev')
-os.system('sudo apt-get install libfontconfig1 libfontconfig1-dev')
-
+# call(['sudo','apt-get','update'])
+# call(['sudo','apt-get','install','build-essential chrpath libssl-dev libxft-dev'])
+# call(['sudo','apt-get','install','libfreetype6 libfreetype6-dev'])
+# call(['sudo','apt-get','install','libfontconfig1 libfontconfig1-dev'])
+# os.chdir(os.path.expanduser("~"))
+# call(['export', 'PHANTOM_JS = "phantomjs-2.1.1-linux-x86_64"'])
+# call(['wget', 'https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2'])
+# call(['sudo','tar','xvjf','$PHANTOM_JS.tar.bz2'])
+# call(['sudo','mv','$PHANTOM_JS','/usr/local/share'])
+# call(['sudo','ln','-sf','/usr/local/share','/$PHANTOM_JS/bin/phantomjs','/usr/local/bin'])
+# print("PhantomJs version is: ", str(os.system('phantomjs --version')))
+# os.chdir(curdir)
 
 """
-Do the job :-)
+Do the job :-
 """
 
 def superset_login(url,Username,Password,DashboardName):
-	options=Options()
-	options.set_headless(True)
-	FFprofile = webdriver.FirefoxProfile()
-	FFprofile.set_preference('print.always_print_silent',True)
-	FFprofile.set_preference('print.printer', "Microsoft Print to PDF")
-	driver = webdriver.Firefox(firefox_profile=FFprofile, options=options)
+	driver = webdriver.PhantomJS()
 	driver.get(url)
 	driver.find_element_by_id("username").send_keys(Username)
 	driver.find_element_by_id("password").send_keys(Password)
@@ -57,14 +62,13 @@ def superset_login(url,Username,Password,DashboardName):
 	driver.find_element_by_link_text(DashboardName).click()
 	WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.ID,'GRID_ID')))
 	bar = Bar('Processing', max=3)
-	for i in range(3):
+	for tt in range(3):
 		time.sleep(1)
 		bar.next()
 	bar.finish()
 	
 	driver.execute_script("(document.getElementsByClassName('navbar'))[0].style.display = 'none';")
 	driver.execute_script("(document.getElementsByClassName('dashboard-header'))[0].style.display = 'none';")
-	driver.get_screenshot_as_file('/tmp/google.png')
 	date_v  = datetime.datetime.today().strftime('%Y-%m-%d')
 	driver.save_screenshot("rapport_journalier "+ date_v +".png")
 	print('Start printing...')
@@ -74,6 +78,5 @@ def superset_login(url,Username,Password,DashboardName):
 	driver.quit()
 
 html_sortie = superset_login(url=Url,Username=username,Password=pswd,DashboardName=dashboard)
-
 
 
